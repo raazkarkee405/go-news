@@ -1,6 +1,6 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { HomeScreen, OnboardingScreen } from "./screens";
+import { HomeScreen, OnboardingScreen, WelcomeScreen } from "./screens";
 import { useState, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -23,11 +23,18 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator>
         {isFirstLaunch && (
-          <Stack.Screen
-            options={{ headerShown: false }}
-            name="OnboardingScreen"
-            component={OnboardingScreen}
-          />
+          <>
+            <Stack.Screen
+              options={{ headerShown: false }}
+              name="OnboardingScreen"
+              component={OnboardingScreen}
+            />
+            <Stack.Screen
+              options={{ headerShown: false }}
+              name="WelcomeScreen"
+              component={WelcomeScreen}
+            />
+          </>
         )}
         <Stack.Screen
           options={{ headerShown: false }}

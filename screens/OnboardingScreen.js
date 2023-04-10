@@ -26,8 +26,8 @@ const OnboardingScreen = () => {
 
   return (
     <Onboarding
-      onSkip={() => navigation.replace("HomeScreen")}
-      onDone={() => navigation.replace("HomeScreen")}
+      onSkip={() => navigation.replace("WelcomeScreen")}
+      onDone={() => navigation.replace("WelcomeScreen")}
       DotComponent={DotComponent}
       pages={[
         {
