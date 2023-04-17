@@ -1,4 +1,6 @@
 export { default as OnboardingScreen } from "./OnboardingScreen";
 export { default as HomeScreen } from "./HomeScreen";
-export { default as WelcomeScreen } from "./WelcomeScreen"
- 
+export { default as WelcomeScreen } from "./WelcomeScreen";
+export { default as SearchScreen } from "./SearchScreen";
+export { default as ExploreScreen } from "./ExploreScreen";
+export { default as BookmarkScreen } from "./BookmarkScreen";
