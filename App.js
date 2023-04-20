@@ -16,19 +16,20 @@ import { MaterialCommunityIcons } from "@expo/vector-icons/";
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
-const Home = () => {
+const Root = () => {
   return (
     <Tab.Navigator
       initialRouteName="HomScreen"
       screenOptions={({ route }) => ({
         title: "",
         headerShown: false,
+        tabBarActiveTintColor: '#475AD7',
         tabBarIcon: ({ color, size }) => {
           const icons = {
             HomeScreen: "home",
             SearchScreen: "magnify",
             ExploreScreen: "apps",
-            BookmarkScreen: "bookmark",
+            BookmarkScreen: "bookmark-outline",
           };
 
           return (
@@ -75,7 +76,7 @@ export default function App() {
           </>
         )}
         <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />
-        <Stack.Screen name="HomeScreen" component={Home} />
+        <Stack.Screen name="Root" component={Root} />
       </Stack.Navigator>
     </NavigationContainer>
   );
