@@ -1,6 +1,6 @@
 import { View, Image, TouchableOpacity, Text, FlatList } from "react-native";
 import React, { useState } from "react";
-import { newZealand } from "../assets";
+import { Newspaper, newZealand } from "../assets";
 import { useNavigation } from "@react-navigation/native";
 import BookmarkComponent from "./BookmarkComponent";
 
@@ -9,7 +9,7 @@ const TopStoriesContainer = ({ data }) => {
   return (
     <View className="flex-row items-center flex-1 flex-nowrap gap-4">
       <FlatList
-        data={data.results}
+        data={data}
         keyExtractor={(item) => item.key}
         showsHorizontalScrollIndicator={false}
         horizontal
@@ -21,7 +21,9 @@ const TopStoriesContainer = ({ data }) => {
               onPress={() => navigation.navigate("BookmarkScreen")}
             >
               <Image
-                source={{ uri: item.multimedia[1].url }}
+                source={
+                  item.multimedia ? { uri: item.multimedia[1].url } : newZealand
+                }
                 className=" w-[190px] h-[250px] object-cover rounded-2xl bg-blend-soft-light"
               />
 
