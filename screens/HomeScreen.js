@@ -5,7 +5,6 @@ import {
   ScrollView,
   TouchableOpacity,
   ActivityIndicator,
-  Image,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import SafeViewAndroid from "../AndroidSafeArea";
@@ -26,7 +25,7 @@ const HomeScreen = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    Promise.all([getNews("hme"), getNews("technolgy")])
+    Promise.all([getNews("home"), getNews("technology")])
       .then(([resTop, resRecommended]) => Promise.all([resTop, resRecommended]))
       .then(([dataTop, dataRecommended]) => {
         setTopStoriesData(dataTop);
