@@ -10,9 +10,12 @@ import ProfileIconComponent from "../components/ProfileIconComponent";
 import HeaderComponent from "../components/HeaderComponent";
 import CategoryComponent from "../components/CategoryComponent";
 import ItemsContainer from "../components/ItemsContainer";
-import { getCategoriesList } from "../api";
 
-const ExploreScreen = () => {
+const ExploreScreen = ({ route }) => {
+  const data  = route.params;
+  if(data) {
+    console.log('categoy', data.category)
+  }
   const [byCategoryData, setByCategoryData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -33,6 +36,7 @@ const ExploreScreen = () => {
       {/* Category Section */}
       <View className="px-8 mt-8 flex-row">
         <CategoryComponent
+          category={data?.category}
           setByCategoryData={setByCategoryData}
           setIsLoading={setIsLoading}
         />

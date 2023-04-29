@@ -3,45 +3,21 @@ import React, { useEffect, useRef, useState } from "react";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { getNews } from "../api";
-import { FlashList } from "@shopify/flash-list";
 
-const listOfCategory = [
-  "latest",
-  "arts",
-  "automobiles",
-  "books",
-  "business",
-  "climate",
-  "education",
-  "fashion",
-  "food",
-  "health",
-  "magazine",
-  "movies",
-  "parenting",
-  "politics",
-  "science",
-  "sports",
-  "technology",
-  "theater",
-  "travel",
-  "us",
-  "universe",
-  "world",
-];
-
-const data = listOfCategory.map((item, index) => {
-  return {
-    key: index,
-    category: item,
-  };
-});
 const _colors = {
   active: `#475AD7`,
   inactive: `#FCD25900`,
 };
 
-const CategoryComponent = ({ setByCategoryData, setIsLoading }) => {
+const CategoryComponent = ({ category, setByCategoryData, setIsLoading }) => {
+  const cate = ["latest"] 
+  console.log(category, "jk");
+  const data = cate?.map((item, index) => {
+    return {
+      key: index,
+      category: item,
+    };
+  });
   const navigation = useNavigation();
   const ref = useRef(null);
   const [index, setIndex] = useState(0);
@@ -66,7 +42,9 @@ const CategoryComponent = ({ setByCategoryData, setIsLoading }) => {
   return (
     <>
       <View className="relative flex-row items-center flex-1 flex-nowrap">
-        <TouchableOpacity onPress={() => navigation.navigate("CategoryScreen")}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("AddCategoryScreen")}
+        >
           <MaterialCommunityIcons name="plus" size={24} color={"#2536A7"} />
         </TouchableOpacity>
         <FlatList

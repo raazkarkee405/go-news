@@ -4,3 +4,5 @@ export { default as WelcomeScreen } from "./WelcomeScreen";
 export { default as SearchScreen } from "./SearchScreen";
 export { default as ExploreScreen } from "./ExploreScreen";
 export { default as BookmarkScreen } from "./BookmarkScreen";
+export { default as AddCategoryScreen } from "./AddCategoryScreen";
+export { default as Explore } from "./Explore";

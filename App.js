@@ -2,7 +2,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import {
   BookmarkScreen,
-  ExploreScreen,
+  Explore,
   HomeScreen,
   OnboardingScreen,
   SearchScreen,
@@ -23,12 +23,12 @@ const Root = () => {
       screenOptions={({ route }) => ({
         title: "",
         headerShown: false,
-        tabBarActiveTintColor: '#475AD7',
+        tabBarActiveTintColor: "#475AD7",
         tabBarIcon: ({ color, size }) => {
           const icons = {
             HomeScreen: "home",
             SearchScreen: "magnify",
-            ExploreScreen: "apps",
+            Explore: "apps",
             BookmarkScreen: "bookmark-outline",
           };
 
@@ -44,7 +44,7 @@ const Root = () => {
     >
       <Tab.Screen name="HomeScreen" component={HomeScreen} />
       <Tab.Screen name="SearchScreen" component={SearchScreen} />
-      <Tab.Screen name="ExploreScreen" component={ExploreScreen} />
+      <Tab.Screen name="Explore" component={Explore} />
       <Tab.Screen name="BookmarkScreen" component={BookmarkScreen} />
     </Tab.Navigator>
   );
