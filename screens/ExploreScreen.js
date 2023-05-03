@@ -12,12 +12,20 @@ import CategoryComponent from "../components/CategoryComponent";
 import ItemsContainer from "../components/ItemsContainer";
 
 const ExploreScreen = ({ route }) => {
-  const data  = route.params;
-  if(data) {
-    console.log('categoy', data.category)
-  }
+  const params = route.params;
+
   const [byCategoryData, setByCategoryData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [updatedCategory, setUpdatedCategory] = useState([]);
+
+  useEffect(() => {
+    if (params) {
+      setUpdatedCategory(params.category);
+      if (!updatedCategory.includes("latest")) {
+        setUpdatedCategory("latest", ...params.category);
+      }
+    }
+  }, [params?.category]);
 
   return (
     <SafeAreaView
@@ -36,9 +44,10 @@ const ExploreScreen = ({ route }) => {
       {/* Category Section */}
       <View className="px-8 mt-8 flex-row">
         <CategoryComponent
-          category={data?.category}
           setByCategoryData={setByCategoryData}
           setIsLoading={setIsLoading}
+          isLoading={isLoading}
+          updatedCategory={updatedCategory}
         />
       </View>
       {isLoading ? (

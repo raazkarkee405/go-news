@@ -10,7 +10,6 @@ import CategoriesItemContainer from "../components/CategoriesItemContainer";
 const AddCategoryScreen = () => {
   const navigation = useNavigation();
   const [selectedCategory, setSelectedCategory] = useState([]);
-  console.log(selectedCategory);
   return (
     <SafeAreaView
       style={SafeViewAndroid.AndroidSafeArea}
@@ -19,7 +18,10 @@ const AddCategoryScreen = () => {
       <View className="px-8 bottom-4 flex-row">
         <TouchableOpacity
           onPress={() =>
-            navigation.navigate("ExploreScreen", { category: selectedCategory })
+            navigation.navigate("Explore", {
+              screen: "ExploreScreen",
+              params: { category: selectedCategory },
+            })
           }
           className="rounded-md items-center justify-center bg-white"
         >

@@ -1,5 +1,4 @@
 export const listOfCategory = [
-  "latest",
   "arts",
   "automobiles",
   "books",

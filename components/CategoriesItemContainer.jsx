@@ -1,32 +1,7 @@
 import { View, Text, FlatList, TouchableOpacity } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { listOfCategory } from "../data";
-
-// const listOfCategory = [
-//   "latest",
-//   "arts",
-//   "automobiles",
-//   "books",
-//   "business",
-//   "climate",
-//   "education",
-//   "fashion",
-//   "food",
-//   "health",
-//   "magazine",
-//   "movies",
-//   "parenting",
-//   "politics",
-//   "science",
-//   "sports",
-//   "technology",
-//   "theater",
-//   "travel",
-//   "us",
-//   "universe",
-//   "world",
-// ];
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
 const data = listOfCategory.map((item, index) => {
   return {
     key: index,
@@ -39,14 +14,43 @@ const _colors = {
 };
 
 const Item = ({ title, key, selectedCategory, setSelectedCategory }) => {
+  const saveData = (updatedCategory) => {
+    AsyncStorage.getItem("@MyCategoryStore:key")
+      .then((value) => {
+        AsyncStorage.setItem(
+          "@MyCategoryStore:key",
+          JSON.stringify(updatedCategory)
+        );
+        setSelectedCategory(updatedCategory);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  useEffect(() => {
+    AsyncStorage.getItem("@MyCategoryStore:key")
+      .then((value) => {
+        const cate = JSON.parse(value);
+        setSelectedCategory(cate);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
   const onPress = (title) => {
+    let updatedCategory = [];
     if (selectedCategory.includes(title)) {
-      const updatedCategory = selectedCategory.filter((item) => item !== title);
-      setSelectedCategory(updatedCategory);
+      updatedCategory = selectedCategory.filter((item) => item !== title);
     } else {
-      const updatedCategory = [...selectedCategory, title];
-      setSelectedCategory(updatedCategory);
+      updatedCategory = [...selectedCategory, title];
     }
+    if (updatedCategory.includes("latest")) {
+      const index = updatedCategory.findIndex((el) => el === "latest");
+      updatedCategory.splice(index, 1);
+      updatedCategory.unshift("latest");
+    }
+    saveData(updatedCategory);
   };
   return (
     <TouchableOpacity
@@ -79,6 +83,7 @@ const CategoriesItemContainer = ({ selectedCategory, setSelectedCategory }) => {
         keyExtractor={(item) => item.key}
         numColumns={2}
         showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ paddingBottom: 50 }}
         renderItem={({ item }) => (
           <Item
             title={item.category}
