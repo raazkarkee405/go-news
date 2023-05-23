@@ -13,6 +13,7 @@ import { useState, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons/";
+import { SignInScreen } from "./screens/auth";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -68,17 +69,21 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-        {isFirstLaunch && (
-          <>
-            <Stack.Screen
-              name="OnboardingScreen"
-              component={OnboardingScreen}
-            />
-          </>
-        )}
-        <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />
-        <Stack.Screen name="Root" component={Root} />
-        <Stack.Screen name="ProfileScreen" component={ProfileScreen}/>
+        {/* 
+         {isFirstLaunch && (
+           <>
+             <Stack.Screen
+               name="OnboardingScreen"
+               component={OnboardingScreen}
+             />
+           </>
+         )}
+         <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />
+         <Stack.Screen name="Root" component={Root} />
+         <Stack.Screen name="ProfileScreen" component={ProfileScreen}/>
+         
+        */}
+        <Stack.Screen name="SignInScreen" component={SignInScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
