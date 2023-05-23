@@ -6,3 +6,4 @@ export { default as ExploreScreen } from "./ExploreScreen";
 export { default as BookmarkScreen } from "./BookmarkScreen";
 export { default as AddCategoryScreen } from "./AddCategoryScreen";
 export { default as Explore } from "./Explore";
+export { default as ProfileScreen } from './ProfileScreen'

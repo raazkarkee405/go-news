@@ -5,6 +5,7 @@ import {
   Explore,
   HomeScreen,
   OnboardingScreen,
+  ProfileScreen,
   SearchScreen,
   WelcomeScreen,
 } from "./screens";
@@ -77,6 +78,7 @@ export default function App() {
         )}
         <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />
         <Stack.Screen name="Root" component={Root} />
+        <Stack.Screen name="ProfileScreen" component={ProfileScreen}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
