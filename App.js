@@ -13,7 +13,7 @@ import { useState, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons/";
-import { SignInScreen } from "./screens/auth";
+import { ConfirmEmailScreen, ForgotPasswordScreen, NewPasswordScreen, SignInScreen, SignUpScreen } from "./screens/auth";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -83,7 +83,7 @@ export default function App() {
          <Stack.Screen name="ProfileScreen" component={ProfileScreen}/>
          
         */}
-        <Stack.Screen name="SignInScreen" component={SignInScreen} />
+        <Stack.Screen name="NewPasswordScreen" component={NewPasswordScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
