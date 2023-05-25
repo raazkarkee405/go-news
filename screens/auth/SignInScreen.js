@@ -1,4 +1,4 @@
-import { View, Text, ScrollView } from "react-native";
+import { View, Text, ScrollView, Alert } from "react-native";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import SafeViewAndroid from "../../AndroidSafeArea";
@@ -6,6 +6,8 @@ import CustomInputComponent from "../../components/auth/CustomInputComponent";
 import { useForm } from "react-hook-form";
 import CustomButtonComponent from "../../components/auth/CustomButtonComponent";
 import SocialSignInComponent from "../../components/auth/SocialSignInComponent";
+import { useNavigation } from "@react-navigation/native";
+import { Auth } from "aws-amplify";
 
 const SignInScreen = () => {
   const {
@@ -13,9 +15,24 @@ const SignInScreen = () => {
     handleSubmit,
     formState: { error },
   } = useForm();
-  const onSignInPressed = () => {};
-  const onForgotPasswordPressed = () => {};
-  const onSignUpPressed = () => {};
+  const [loading, setLoading] = useState(false);
+  const navigation = useNavigation();
+  const onSignInPressed = async (data) => {
+    if (loading) return;
+    setLoading(true);
+    try {
+      await Auth.signIn(data.username, data.password);
+    } catch (error) {
+      Alert.alert("Oops", error.message);
+    }
+    setLoading(false);
+  };
+  const onForgotPasswordPressed = () => {
+    navigation.navigate("ForgotPasswordScreen");
+  };
+  const onSignUpPressed = () => {
+    navigation.navigate("SignUpScreen");
+  };
   const onSignInFacebook = () => {};
   const onSignInGoogle = () => {};
   const onSignInApple = () => {};
@@ -51,12 +68,12 @@ const SignInScreen = () => {
             secureTextEntry
             rules={{
               required: "Password is required",
-              minLength: { value: 3, message: "Password is too short" },
+              minLength: { value: 8, message: "Password is too short" },
             }}
           />
 
           <CustomButtonComponent
-            text="Sign In"
+            text={loading ? "Loading..." : "Sign In"}
             onPress={handleSubmit(onSignInPressed)}
           />
           <CustomButtonComponent
@@ -82,13 +99,12 @@ const SignInScreen = () => {
           />
 
           <SocialSignInComponent
-          text="Sign In with Apple"
-          social="apple"
-          onPress={onSignInApple}
-          bgColor="#e3e3e3"
-          fgColor="#363636"
-        />
-
+            text="Sign In with Apple"
+            social="apple"
+            onPress={onSignInApple}
+            bgColor="#e3e3e3"
+            fgColor="#363636"
+          />
 
           <CustomButtonComponent
             text="Don't have an account? Create one"

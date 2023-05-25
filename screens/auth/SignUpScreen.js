@@ -1,10 +1,12 @@
-import { View, Text, ScrollView } from "react-native";
+import { View, Text, ScrollView, Alert } from "react-native";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import SafeViewAndroid from "../../AndroidSafeArea";
 import CustomInputComponent from "../../components/auth/CustomInputComponent";
 import { useForm } from "react-hook-form";
 import CustomButtonComponent from "../../components/auth/CustomButtonComponent";
+import { useNavigation } from "@react-navigation/native";
+import { Auth } from "aws-amplify";
 
 const EMAIL_REGEX =
   /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
@@ -16,8 +18,25 @@ const SignUpScreen = () => {
     formState: { error },
     watch,
   } = useForm();
-  const onSignInPressed = () => {};
-  const onSignUpPressed = () => {};
+
+  const navigation = useNavigation();
+
+  const onSignInPressed = () => {
+    navigation.navigate("SignInScreen");
+  };
+  const onSignUpPressed = async (data) => {
+    const { username, password, email, name } = data;
+    try {
+      await Auth.signUp({
+        username,
+        password,
+        attributes: { email, name, preferred_username: username },
+      });
+      navigation.navigate("ConfirmEmailScreen", { username });
+    } catch (error) {
+      Alert.alert("Oops", error.message);
+    }
+  };
 
   return (
     <SafeAreaView
@@ -38,6 +57,17 @@ const SignUpScreen = () => {
         </View>
 
         <View className="px-7 mt-3 flex-col">
+          <CustomInputComponent
+            name="name"
+            placeholder="Name"
+            iconName={"account"}
+            control={control}
+            rules={{
+              required: "Name is required",
+              minLength: { value: 3, message: "User is too short" },
+              maxLength: { value: 20, message: "User is too long" },
+            }}
+          />
           <CustomInputComponent
             name="username"
             control={control}

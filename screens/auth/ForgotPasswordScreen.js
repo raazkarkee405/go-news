@@ -1,15 +1,28 @@
-import { View, Text, ScrollView } from "react-native";
+import { View, Text, ScrollView, Alert } from "react-native";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import SafeViewAndroid from "../../AndroidSafeArea";
 import CustomInputComponent from "../../components/auth/CustomInputComponent";
 import { useForm } from "react-hook-form";
 import CustomButtonComponent from "../../components/auth/CustomButtonComponent";
+import { useNavigation } from "@react-navigation/native";
+import { Auth } from "aws-amplify";
 
 const ForgotPasswordScreen = () => {
   const { control, handleSubmit } = useForm();
-  const onNextPressed = () => {};
-  const onSignInPressed = () => {};
+
+  const navigation = useNavigation();
+  const onNextPressed = async (data) => {
+    try {
+      await Auth.forgotPassword(data.username);
+      navigation.navigate("NewPasswordScreen");
+    } catch (error) {
+      Alert.alert("Oops", error.message);
+    }
+  };
+  const onSignInPressed = () => {
+    navigation.navigate("SignInScreen");
+  };
 
   return (
     <SafeAreaView

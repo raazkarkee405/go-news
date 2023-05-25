@@ -34,7 +34,7 @@ const WelcomeScreen = () => {
           first to know last news
         </Text>
       </View>
-      <TouchableOpacity onPress={() => navigation.navigate("Root")}>
+      <TouchableOpacity onPress={() => navigation.navigate("SignInScreen")}>
         <View className="mt-7 py-5 mx-7 rounded-2xl bg-[#475AD7] items-center justify-center">
           <Text className="text-2xl font-semibold uppercase tracking-wider text-gray-100">
             Get Started

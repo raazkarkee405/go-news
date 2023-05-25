@@ -1,20 +1,42 @@
-import { View, Text, ScrollView } from "react-native";
+import { View, Text, ScrollView, Alert } from "react-native";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import SafeViewAndroid from "../../AndroidSafeArea";
 import CustomInputComponent from "../../components/auth/CustomInputComponent";
 import { useForm } from "react-hook-form";
 import CustomButtonComponent from "../../components/auth/CustomButtonComponent";
-
-const EMAIL_REGEX =
-  /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+import { useNavigation, useRoute } from "@react-navigation/native";
+import { Auth } from "aws-amplify";
 
 const ConfirmEmailScreen = () => {
-  const { control, handleSubmit } = useForm();
-  const onConfirmPressed = () => {};
+  const route = useRoute();
+  const { control, handleSubmit, watch } = useForm({
+    defaultValues: { username: route?.params?.username },
+  });
 
-  const onResendPressed = () => {};
-  const onSignInPressed = () => {};
+  const username = watch("username");
+
+  const navigation = useNavigation();
+  const onConfirmPressed = async (data) => {
+    try {
+      await Auth.confirmSignUp(data.username, data.code);
+      navigation.navigate("SignInScreen");
+    } catch (error) {
+      Alert.alert("Oops", error.message);
+    }
+  };
+
+  const onResendPressed = async () => {
+    try {
+      await Auth.resendSignUp(username);
+      Alert.alert("Success", "Code was resent to your email.");
+    } catch (error) {
+      Alert.alert("Oops", error.message);
+    }
+  };
+  const onSignInPressed = () => {
+    navigation.navigate("SignInScreen");
+  };
 
   return (
     <SafeAreaView
@@ -34,6 +56,15 @@ const ConfirmEmailScreen = () => {
         </View>
 
         <View className="px-7 mt-3 flex-col">
+          <CustomInputComponent
+            name="username"
+            control={control}
+            placeholder="Username"
+            iconName="account"
+            rules={{
+              required: "Username is required",
+            }}
+          />
           <CustomInputComponent
             name="code"
             control={control}

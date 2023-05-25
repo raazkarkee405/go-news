@@ -1,0 +1,20 @@
+{
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-gonews-staging-160811-authRole",
+      "UnauthRoleArn": "arn:aws:iam::687858316905:role/amplify-gonews-staging-160811-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::687858316905:role/amplify-gonews-staging-160811-authRole",
+      "Region": "ap-south-1",
+      "DeploymentBucketName": "amplify-gonews-staging-160811-deployment",
+      "UnauthRoleName": "amplify-gonews-staging-160811-unauthRole",
+      "StackName": "amplify-gonews-staging-160811",
+      "StackId": "arn:aws:cloudformation:ap-south-1:687858316905:stack/amplify-gonews-staging-160811/5912ccd0-fb16-11ed-aefa-061d7e0be836",
+      "AmplifyAppId": "d2op0mpvdcw1rg"
+    },
+    "categories": {
+      "auth": {
+        "gonews": {}
+      }
+    }
+  }
+}
