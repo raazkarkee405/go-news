@@ -40,9 +40,9 @@ const Root = () => {
         tabBarIcon: ({ color, size }) => {
           const icons = {
             HomeScreen: "home",
-            SearchScreen: "magnify",
             Explore: "apps",
-            BookmarkScreen: "bookmark-outline",
+            // BookmarkScreen: "bookmark-outline",
+            ProfileScreen: "account",
           };
 
           return (
@@ -56,9 +56,9 @@ const Root = () => {
       })}
     >
       <Tab.Screen name="HomeScreen" component={HomeScreen} />
-      <Tab.Screen name="SearchScreen" component={SearchScreen} />
       <Tab.Screen name="Explore" component={Explore} />
-      <Tab.Screen name="BookmarkScreen" component={BookmarkScreen} />
+      {/*<Tab.Screen name="BookmarkScreen" component={BookmarkScreen} />*/}
+      <Tab.Screen name="ProfileScreen" component={ProfileScreen} />
     </Tab.Navigator>
   );
 };

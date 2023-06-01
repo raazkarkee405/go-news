@@ -4,12 +4,13 @@ import {
   ScrollView,
   ActivityIndicator,
 } from "react-native";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import SafeViewAndroid from "../AndroidSafeArea";
-import ProfileIconComponent from "../components/ProfileIconComponent";
 import HeaderComponent from "../components/HeaderComponent";
 import CategoryComponent from "../components/CategoryComponent";
 import ItemsContainer from "../components/ItemsContainer";
+import InputComponent from "../components/InputComponent";
+import filter from "lodash.filter";
 
 const ExploreScreen = ({ route }) => {
   const params = route.params;
@@ -17,6 +18,23 @@ const ExploreScreen = ({ route }) => {
   const [byCategoryData, setByCategoryData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [updatedCategory, setUpdatedCategory] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [fullDataToFilter, setFullDataToFilter] = useState([]);
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+    const formattedQuery = query.toLowerCase();
+    const filteredData = filter(fullDataToFilter, (data) => {
+      return contains(data, formattedQuery);
+    });
+    setByCategoryData(filteredData);
+  };
+
+  const contains = ({ title }, query) => {
+    if (title.toLowerCase().includes(query)) {
+      return true;
+    }
+    return false;
+  };
 
   useEffect(() => {
     if (params) {
@@ -38,9 +56,14 @@ const ExploreScreen = ({ route }) => {
           title="Browse"
           description="Discover things of this world"
         />
-        {/* profile section */}
-        <ProfileIconComponent />
       </View>
+      <InputComponent
+        placeholder="Search"
+        clearButtonMode="always"
+        iconName="search"
+        searchQuery={searchQuery}
+        handleSearch={handleSearch}
+      />
       {/* Category Section */}
       <View className="px-8 mt-8 flex-row">
         <CategoryComponent
@@ -48,6 +71,8 @@ const ExploreScreen = ({ route }) => {
           setIsLoading={setIsLoading}
           isLoading={isLoading}
           updatedCategory={updatedCategory}
+          setFullDataToFilter={setFullDataToFilter}
+          setSearchQuery={setSearchQuery}
         />
       </View>
       {isLoading ? (
@@ -57,7 +82,7 @@ const ExploreScreen = ({ route }) => {
       ) : (
         <ScrollView>
           <View className="flex-row items-center justify-evenly p-8">
-            <ItemsContainer data={byCategoryData?.results} />
+            <ItemsContainer data={byCategoryData} />
           </View>
         </ScrollView>
       )}

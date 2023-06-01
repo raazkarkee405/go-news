@@ -16,7 +16,13 @@ const _colors = {
   inactive: `#FCD25900`,
 };
 
-const CategoryComponent = ({ setByCategoryData, setIsLoading, updatedCategory }) => {
+const CategoryComponent = ({
+  setByCategoryData,
+  setIsLoading,
+  updatedCategory,
+  setFullDataToFilter,
+  setSearchQuery,
+}) => {
   const navigation = useNavigation();
   const ref = useRef(null);
   const [index, setIndex] = useState(0);
@@ -28,9 +34,9 @@ const CategoryComponent = ({ setByCategoryData, setIsLoading, updatedCategory })
     const category = ["latest", "politics", "sports"];
     // AsyncStorage.clear()
     AsyncStorage.getItem("@MyCategoryStore:key")
-    .then((value) => {
-      const cate = JSON.parse(value);
-      if (value == null || cate === 0) {
+      .then((value) => {
+        const cate = JSON.parse(value);
+        if (value == null || cate === 0) {
           AsyncStorage.setItem(
             "@MyCategoryStore:key",
             JSON.stringify(category)
@@ -65,11 +71,14 @@ const CategoryComponent = ({ setByCategoryData, setIsLoading, updatedCategory })
   }, [index]);
 
   useEffect(() => {
+    setSearchQuery("");
     setIsLoading(() => true);
     Promise.all([getNews(type)])
       .then(([resCategoryList]) => Promise.all([resCategoryList]))
       .then(([dataCategory]) => {
-        setByCategoryData(() => dataCategory);
+        setByCategoryData(() => dataCategory?.results);
+        setFullDataToFilter(() => dataCategory?.results);
+
         setIsLoading(() => false);
       });
   }, [type, updatedCategory]);

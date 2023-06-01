@@ -7,9 +7,9 @@ const WeatherComponent = () => {
     <View>
       <TouchableOpacity>
         <Text className="text-[16px] text-[#7C82A1] justify-between">
-          68°F <MaterialCommunityIcons name="cloud" size={24} color="#22242F" />
+        68°F
         </Text>
-        <Text className="text-[16px] ">Tuesday, Apr 11</Text>
+        <MaterialCommunityIcons name="cloud" size={24} color="#22242F" />
       </TouchableOpacity>
     </View>
   );

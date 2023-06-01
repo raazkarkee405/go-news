@@ -15,7 +15,9 @@ import ProfileIconComponent from "../components/ProfileIconComponent";
 import WeatherComponent from "../components/WeatherComponent";
 import { useNavigation } from "@react-navigation/native";
 import { getNews } from "../api";
+import HeaderComponent from "../components/HeaderComponent";
 
+const date = new Date().toDateString().toString()
 const HomeScreen = () => {
   const navigation = useNavigation();
 
@@ -40,10 +42,16 @@ const HomeScreen = () => {
       className="flex-1 bg-white relative"
     >
       <View className="flex-row items-center justify-between px-8 mt-2">
-        {/* weather section */}
-        <WeatherComponent />
-        {/* profile section */}
-        <ProfileIconComponent />
+        {/* weather section 
+      
+      */}
+      
+      {/* Header section */}
+      <HeaderComponent
+      title="Your briefing"
+      description={date}
+      />
+      <WeatherComponent />
       </View>
 
       {isLoading ? (
