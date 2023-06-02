@@ -6,6 +6,7 @@ import {
   BookmarkScreen,
   Explore,
   HomeScreen,
+  NewsScreen,
   OnboardingScreen,
   ProfileScreen,
   SearchScreen,
@@ -118,6 +119,7 @@ export default function App() {
           <>
             <Stack.Screen name="Root" component={Root} />
             <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
+            <Stack.Screen name="NewsScreen" component={NewsScreen} />
           </>
         ) : (
           <>

@@ -82,7 +82,7 @@ const ExploreScreen = ({ route }) => {
       ) : (
         <ScrollView>
           <View className="flex-row items-center justify-evenly p-8">
-            <ItemsContainer data={byCategoryData} />
+            <ItemsContainer data={byCategoryData} screen="Explore" />
           </View>
         </ScrollView>
       )}

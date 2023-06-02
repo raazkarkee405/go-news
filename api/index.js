@@ -10,3 +10,15 @@ export const getNews = async (type) => {
     return null;
   }
 };
+
+export const searchNews = async (query) => {
+  try {
+    const value = encodeURIComponent(`_id:"${query}"`);
+    const data = await axios.get(
+      `https://api.nytimes.com/svc/search/v2/articlesearch.json?fq=${value}&api-key=${API_KEY}`
+    );
+    return data.data;
+  } catch (error) {
+    return null;
+  }
+};

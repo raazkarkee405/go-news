@@ -18,7 +18,12 @@ const TopStoriesContainer = ({ data }) => {
             <TouchableOpacity
               key={item.key}
               className="relative bg-white shadow-lg mr-4"
-              onPress={() => navigation.navigate("BookmarkScreen")}
+              onPress={() =>
+                navigation.navigate("NewsScreen", {
+                  dataItems: item,
+                  prevScreen: "HomeScreen",
+                })
+              }
             >
               <Image
                 source={

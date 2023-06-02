@@ -17,7 +17,7 @@ import { useNavigation } from "@react-navigation/native";
 import { getNews } from "../api";
 import HeaderComponent from "../components/HeaderComponent";
 
-const date = new Date().toDateString().toString()
+const date = new Date().toDateString().toString();
 const HomeScreen = () => {
   const navigation = useNavigation();
 
@@ -45,13 +45,10 @@ const HomeScreen = () => {
         {/* weather section 
       
       */}
-      
-      {/* Header section */}
-      <HeaderComponent
-      title="Your briefing"
-      description={date}
-      />
-      <WeatherComponent />
+
+        {/* Header section */}
+        <HeaderComponent title="Your briefing" description={date} />
+        <WeatherComponent />
       </View>
 
       {isLoading ? (
@@ -66,7 +63,10 @@ const HomeScreen = () => {
               <Text className="text-[16px] text-[#2536A7] font-bold">
                 Top Stories
               </Text>
-              <TouchableOpacity className="px-3">
+              <TouchableOpacity
+                className="px-3"
+                onPress={() => navigation.navigate("Explore")}
+              >
                 <FontAwesome
                   name="chevron-circle-right"
                   size={24}
@@ -98,7 +98,7 @@ const HomeScreen = () => {
                 Recommended for you
               </Text>
               <TouchableOpacity
-                onPress={() => navigation.navigate("ExploreScreen")}
+                onPress={() => navigation.navigate("Explore")}
                 className="px-3"
               >
                 <Text className="text-[15px] text-[#7C82A1] font-extrabold">
@@ -109,7 +109,7 @@ const HomeScreen = () => {
           </View>
           {/* Recommended items section */}
           <View className="px-8 mt-8 flex-row items-center justify-evenly flex-1">
-            <ItemsContainer data={recommendedData?.results} />
+            <ItemsContainer data={recommendedData?.results} screen="HomeScreen" />
           </View>
         </ScrollView>
       )}

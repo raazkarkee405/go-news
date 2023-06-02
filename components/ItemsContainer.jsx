@@ -3,14 +3,25 @@ import React from "react";
 import { newZealand } from "../assets";
 
 import BookmarkComponent from "./BookmarkComponent";
+import { useNavigation } from "@react-navigation/native";
 
-const ItemsContainer = ({ data }) => {
+const ItemsContainer = ({ data, screen }) => {
+  const navigation = useNavigation();
   return (
     <View className="flex-1 flex-col justify-between gap-5">
       {data?.length > 0 ? (
         data.map((item) => (
           <>
-            <TouchableOpacity key={item.key} className="ml-4 mb-4 mt-4">
+            <TouchableOpacity
+              key={item.key}
+              className="ml-4 mb-4 mt-4"
+              onPress={() =>
+                navigation.navigate("NewsScreen", {
+                  dataItems: item,
+                  prevScreen: screen,
+                })
+              }
+            >
               <View>
                 <Image
                   source={
